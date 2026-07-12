@@ -28,3 +28,32 @@ Once you have your chain of 5 Whys, read them backwards using "therefore":
 The system lacked context-aware security; therefore, it failed to detect the location change; therefore, it did not trigger an alert; therefore, the fraud went through; therefore, Mama Nkechi lost her money.
 
 If the "therefore" logic flows perfectly, you have found a solid causal chain.
+Data structure sketch – Show how the transaction data is stored (e.g., as a table/CSV, dictionary, or list). A table is the most appropriate because it preserves all transaction details.
+Date	Time	Amount (₦)	Type	Location
+Jun 1	10:03	+15,000	Receive	Market
+Jun 1	14:22	-2,000	Send	Market
+Jun 2	09:17	+8,500	Receive	Market
+Jun 3	11:45	-45,000	Send	Lagos
+Jun 3	11:47	-5,000	Send	Lagos
+
+Why this structure?
+A table efficiently stores multiple transactions, keeps all fields together, and makes it easy to compare dates, locations, and amounts to detect suspicious behaviour.
+
+Fraud pattern sentence – Complete the sentence from the lab.
+
+This looks like fraud because normally Mama Nkechi receives payments and only makes small local transfers at the market, but on June 3 she suddenly made two large outgoing transfers from Lagos within two minutes, which is unusual behaviour.
+
+Complete the 5 Whys analysis – This was specifically identified as missing.
+Question	Answer
+1. Why did Mama Nkechi lose ₦45,000?	Because unauthorized transfers of ₦45,000 and ₦5,000 were processed from her account.
+2. Why were those transactions allowed?	Because the system did not require a secondary verification for a large transfer from an unusual location.
+3. Why didn't the system alert her?	Because its fraud detection rules did not identify the sudden change in transaction behaviour.
+4. Why wasn't the location change detected?	Because the system did not compare the transaction location with Mama Nkechi's normal transaction history.
+5. Why (Root Cause)?	The mobile money system lacked simple risk-based security checks, such as detecting unusual locations or requiring confirmation for large, abnormal transactions.
+A practical one-sentence fix – Your instructor said your AI solution is too abstract. The fix should suit a low-bandwidth, offline-friendly environment.
+
+A suitable answer is:
+
+If a large transfer is attempted from a new location, the system should send a USSD or SMS confirmation request and only complete the transaction after the user enters a verification PIN.
+
+This solution works on basic mobile phones without requiring internet access or advanced AI
